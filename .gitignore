@@ -1,1 +1,3 @@
-var/logs/
+.idea
+var/*
+!var/.gitignore

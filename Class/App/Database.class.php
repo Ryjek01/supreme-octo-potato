@@ -5,7 +5,7 @@
  * Time: 20:35
  */
 
-namespace Database;
+namespace App;
 
 use PDO;
 use PDOException;

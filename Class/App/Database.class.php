@@ -24,9 +24,11 @@ class Database
 
     public function __construct()
     {
+        $conf = General::config("sql",["host","port","user","password","name"]);
+
         try{
-            $dsn = "mysql:host=localhost;dbname=dht";
-            $this->dbh = new PDO($dsn,"root","komando4268",$this->options);
+            $dsn = "mysql:host={$conf['host']};dbname={$conf['name']}";
+            $this->dbh = new PDO($dsn,$conf['user'], $conf['password'],$this->options);
 
             $this->dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, $this->return);
         } catch (PDOException $e) {

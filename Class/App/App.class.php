@@ -28,8 +28,29 @@ class App
         $smarty->setTemplateDir("template");
         $smarty->setCompileDir("../var/templates_c");
         $smarty->setCacheDir("../var/cache");
-        $smarty->setConfigDir("../configs");
+        $smarty->setConfigDir("../Config");
 
         self::$view=$smarty;
+    }
+
+    protected function getConfig(string $config,array $out)
+    {
+        $file = file_exists("../Config/$config");
+        if($file) {
+            $f = file("../Config/$config");
+            $return=[];
+            foreach ($f as $line) {
+                if($line[0]==="#") continue;
+                $values = explode(":",$line);
+                $r=[];
+                for ($i=0;$i<count($values);$i++){
+                    $r[$out[$i]] = $values[$i];
+                }
+                $return[] = $r;
+            }
+            return (count($return)>1) ? $return : $return[0];
+        } else {
+            return false;
+        }
     }
 }

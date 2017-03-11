@@ -42,13 +42,22 @@ class App
             foreach ($f as $line) {
                 if($line[0]==="#") continue;
                 $values = explode(":",$line);
-                $r=[];
-                for ($i=0;$i<count($values);$i++){
-                    $r[$out[$i]] = $values[$i];
+                $count = count($values);
+                if($count>1) {
+                    $r=[];
+                    for ($i = 0; $i < $count; $i++) {
+                        $string = str_replace("\r","",$values[$i]);
+                        $string = str_replace("\n","",$string);
+                        $r[$out[$i]] = $string;
+                    }
+                    $return[] = $r;
+                } else {
+                    $string = str_replace("\r","",$values[0]);
+                    $string = str_replace("\n","",$string);
+                    $return[]=$string;
                 }
-                $return[] = $r;
             }
-            return (count($return)>1) ? $return : $return[0];
+            return (count($return)>1 || count($out)===0) ? $return : $return[0];
         } else {
             return false;
         }

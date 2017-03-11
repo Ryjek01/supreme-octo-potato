@@ -1,3 +1,3 @@
 <div class="col-lg-4">
-    dasdasd
+    {$test}
 </div>
